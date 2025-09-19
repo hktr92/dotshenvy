@@ -11,6 +11,7 @@ It allows you to run different tool versions in isolated Docker containers while
 - Dockerized environments, so no need to install multiple versions on the host.
 - Easy integration with Zsh (`eval "$(shenvy init zsh)"`).
 - Self-contained; works with a dedicated Python venv.
+- Per-directory configuration.
 
 ---
 
@@ -73,6 +74,32 @@ And reload your shell:
 
 ```
 source ~/.zshrc
+```
+
+### 5. Per-directory configuration
+
+You can create a `.shenvy/init.zsh` file in your CWD to customize and extend shenvy.
+
+For example, let's say you're building a project on top of [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker):
+
+```
+# .shenvy/init.zsh
+
+echo "Aliasing 'php'..."
+alias php='docker compose exec php php -d memory_limit=512M "$@"'
+
+echo "Aliasing 'composer'..."
+alias composer='docker compose exec php composer "$@"'
+
+echo "Aliasing command: 'asset-build'..."
+alias asset-build='clear; php bin/console cache:clear && composer asset:build && pnpm dev'
+
+echo "Aliasing command: 'diff-and-migrate'"
+alias diff-and-migrate='clear; php bin/console doctrine:migrations:diff && php bin/console doctrine:migrations:migrate -n'
+
+echo "Aliasing command: 'load-fixtures'"
+alias load-fixtures='clear; php bin/console doctrine:fixtures:load -n'
+
 ```
 
 ---
