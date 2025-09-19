@@ -102,6 +102,8 @@ alias load-fixtures='clear; php bin/console doctrine:fixtures:load -n'
 
 ```
 
+Now you can use `composer install` without having to prefix it with `docker compose exec php`.
+
 ---
 
 ## Usage
