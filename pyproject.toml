@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shenvy"
+version = "0.1.0"
+description = "Lightweight shim generator for dockerized tools"
+authors = [
+    { name = "Petru Szemereczki", email = "petru.szemereczki@proton.me" }
+]
+dependencies = [
+    "jinja2",
+    "typer",
+    "packaging"
+]
+
+[project.scripts]
+shenvy = "shenvy.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["shenvy*"]
+
+[tool.setuptools.package-data]
+"shenvy.templates" = ["*.j2"]
+"shenvy.tools" = ["**/Dockerfile"]
