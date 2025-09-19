@@ -44,7 +44,7 @@ def generate_shims():
                 script = template.render(
                     tool=tool,
                     version=version,
-                    dockerfile=str(dockerfile_path),
+                    dockerfile=dockerfile_path,
                     entrypoint=cfg["entrypoint"],
                 )
 
@@ -61,7 +61,7 @@ def generate_shims():
                         normalized_version=normalized_version,
                         version=version,
                         entrypoint=alias,
-                        dockerfile=cfg["dockerfile"],
+                        dockerfile=dockerfile_path,
                     )
 
                     alias_path.write_text(shim)
